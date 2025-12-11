@@ -20,7 +20,7 @@ const HomeBottomText = () => {
           hover:text-green-400 hover:border-green-300
           transition-all duration-300
           whitespace-nowrap'>Projects</Link>
-        <Link className='
+        <Link to='/agents' className='
           uppercase font-bold border-white border-2 rounded-full
           px-4 py-1.5
           sm:px-5 sm:py-2
