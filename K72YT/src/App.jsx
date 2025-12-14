@@ -13,13 +13,13 @@ const Projects = React.lazy(() => import('./pages/projects.jsx'))
 const App = () => {
   return (
     <div className=''>
-      <FullScreenNav />
-      {/* <Navbar/>
+      {/* <FullScreenNav /> */}
+      <Navbar/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/agents' element={<Agents />} />
         <Route path='/projects' element={<Projects />} />
-      </Routes> */}
+      </Routes>
     </div>
   )
 }
