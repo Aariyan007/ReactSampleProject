@@ -7,6 +7,8 @@ const Agents = () => {
   const imageDivfF = useRef(null);
   const imageRef = useRef(null);
   const section3Ref = useRef(null);
+  const section4Ref = useRef(null);
+  const marqueeRef = useRef(null);
   const imageArray = ["christmas.jpg", "image1.jpg", "image2.jpg", "image3.jpeg", "image4.jpeg", "image5.jpeg"];
 
   gsap.registerPlugin(ScrollTrigger);
@@ -35,16 +37,28 @@ const Agents = () => {
         }
       }
     });
+
+    // Background color change when reaching section4
     gsap.to(section3Ref.current, {
       backgroundColor: '#ffffff',
       scrollTrigger: {
-        trigger: section3Ref.current,
-        markers: true,
-        start: "top -320%",
-        end: "top -340%",
-        scrub: true,
+        trigger: section4Ref.current,
+        start: "top 80%",
+        end: "top 30%",
+        scrub: 1,
       }
-    })
+    });
+
+    // Marquee animation
+    const marqueeContent = marqueeRef.current;
+    if (marqueeContent) {
+      gsap.to(marqueeContent, {
+        x: '-50%',
+        duration: 20,
+        repeat: -1,
+        ease: 'none'
+      });
+    }
   });
 
   return (
@@ -76,12 +90,63 @@ const Agents = () => {
         <div className='h-[20vw] text-xl flex flex-row justify-around pt-28 font-semibold text-white px-12'>
           <p>Our Work_ Born in curiosity, raised by <br /> dedication and fed with a steady diet of <br />creativity.</p>
           <p>Our Creative_ Simmering in an <br /> environment where talent can come to a <br /> full boil. Encouraged to become the best <br /> versions of ourselves.</p>
-          <p>Our Culture_ We’re open to <br /> each other. Period. The team <br /> works together to create a <br /> space that makes us proud.</p>
+          <p>Our Culture_ We're open to <br /> each other. Period. The team <br /> works together to create a <br /> space that makes us proud.</p>
         </div>
       </div>
-      <div className='min-h-screen'>
 
+      <div ref={section4Ref} className='min-h-screen relative flex items-center justify-center overflow-hidden'>
+        {/* Center Image */}
+        <div className='h-[40vw] w-[40vw] max-w-[500px] max-h-[500px] rounded-2xl overflow-hidden relative z-10'>
+          <img className='w-full h-full object-cover' src="image3.jpeg" alt="" />
+        </div>
+
+        {/* Marquee Text - Top */}
+        <div className='absolute top-[20%] left-0 w-full overflow-hidden'>
+          <div ref={marqueeRef} className='flex gap-8 whitespace-nowrap'>
+            {[...Array(6)].map((_, i) => (
+              <h2 key={i} className='text-6xl font-bold text-black uppercase'>
+                CREATIVE AGENCY • BRANDING • DESIGN •
+              </h2>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee Text - Middle (Over Image) */}
+        <div className='absolute top-1/2 -translate-y-1/2 left-0 w-full overflow-hidden z-20'>
+          <div className='flex gap-8 whitespace-nowrap' style={{ animation: 'marquee-middle 15s linear infinite' }}>
+            {[...Array(6)].map((_, i) => (
+              <h2 key={i} className='text-7xl font-bold text-white uppercase' style={{ WebkitTextStroke: '2px black' }}>
+                INNOVATION • CREATIVITY • EXCELLENCE •
+              </h2>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee Text - Bottom */}
+        <div className='absolute bottom-[20%] left-0 w-full overflow-hidden'>
+          <div className='flex gap-8 whitespace-nowrap' style={{ animation: 'marquee-reverse 20s linear infinite' }}>
+            {[...Array(6)].map((_, i) => (
+              <h2 key={i} className='text-6xl font-bold text-black uppercase'>
+                STRATEGY • INNOVATION • EXCELLENCE •
+              </h2>
+            ))}
+          </div>
+        </div>
       </div>
+
+      <style jsx>{`
+  @keyframes marquee-reverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
+  @keyframes marquee-middle {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+`}</style>
+
+
+
     </div>
   )
 }
